@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-05 00:41:45
+ * @Last Modified time: 2016-02-05 03:57:24
  */
 
 require_once 'inc/connection.inc.php';
@@ -15,12 +15,49 @@ if(!isLoggedin()){
 }
 
 if(isset($_POST['submit'])){
-	echo json_encode($_POST);
-	die;
+	/**
+	 * $selected_move would tell about the type of move
+	 * user has played in the current move
+	 * @var integer
+	 *
+	 * Possible values are : 
+	 * 0 - pass
+	 * 1 - take loan from bank
+	 * 2 - attack
+	 * 3 - trade
+	 */
+	$selected_move = (int)$_POST['move']%4;
+	
+	switch($selected_move){
+		case 0:
+			// do nothing
+			break;
+		
+		case 1:
+			$loan_amount_wanted = (int)$_POST['loan_amount'];
+			break;
+
+		case 2:
+			$team_on_attack = (int)$_POST['team_on_attack'];
+			$army_on_defence = (int)$_POST['army_on_defence'];
+			
+			break;
+
+		default:
+			$army_amount = (int)$_POST['army_amount'];
+			$money_amount = (int)$_POST['money_amount'];
+			$land_amount = (int)$_POST['land_amount'];
+
+			break;
+	}
+
+	echo $selected_move;
+
+	// echo json_encode($_POST);
+	// die;
 }
 
 ?>
-
 <!doctype html>
 <html>
 <head>
