@@ -1,37 +1,86 @@
 <?php
+/**
+ * @Author: Prabhakar Gupta
+ * @Date:   2016-01-31 13:02:57
+ * @Last Modified by:   Prabhakar Gupta
+ * @Last Modified time: 2016-01-31 21:05:44
+ */
 
-$host="localhost"; 
-$username="";  
-$password=""; 
-$db_name="pro"; 
-$tbl_name="users"; 
+require_once 'inc/connection.inc.php';
+require_once 'inc/login_functions.inc.php';
+require_once 'inc/function.inc.php';
 
-mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
-mysql_select_db("$db_name")or die("cannot select DB");
-
-
-$username=$_POST['username']; 
-$pwd=$_POST['pwd']; 
-
-
-$username = stripslashes($username);
-$pwd = stripslashes($pwd);
-$username = mysql_real_escape_string($username);
-$pwd = mysql_real_escape_string($pwd);
-$sql="SELECT * FROM $tbl_name WHERE username='$username' and password='$pwd'";
-$result=mysql_query($sql);
-
-$count=mysql_num_rows($result);
-
-
-if($count==1){
-
-
-session_register("username");
-session_register("pwd"); 
-header("location:success.php");
+if(isLoggedin()){
+	header("Location: index.php");
 }
-else {
-echo "Wrong Username or Password";
+
+if(isset($_POST['submit'])){
+	$entered_email 	= clean_string($_POST['email']);
+	$entered_pass	= encrypt_data(clean_string($_POST['pass']));
+	
+	$query = "SELECT `user_id`, `current_level`, `name`, `disqualified` FROM `users` WHERE `email_id`='$entered_email' AND `password`='$entered_pass' LIMIT 1";
+
+	$query_row = mysqli_fetch_assoc(mysqli_query($connection, $query));
+	
+	if(isset($query_row['user_id'])){
+		$_SESSION['user_id'] 		= (int)$query_row['user_id'];
+		$_SESSION['name'] 			= clean_string($query_row['name']);
+		$_SESSION['current_level'] 	= (int)$query_row['current_level'];
+		$_SESSION['disqualified'] 	= (bool)$query_row['disqualified'];
+
+		header("Location: index.php");
+	} else {
+		$error = true;
+		$message = "Something's wrong!<br><strong>Incorrect Email ID - Password combination</strong>";
+	}
 }
+
 ?>
+
+<!doctype html>
+<html>
+<head>
+<?php
+
+require_once 'inc/layout/stylesheets.inc.php';
+
+?>
+</head>
+<body>
+<?php
+
+	include 'inc/layout/header.inc.php';
+
+?>
+<div class="container">
+<?php
+
+if(isset($error)){
+	echo '<div class="alert alert-danger alert-dismissible fade in" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>' . $message . '</div>';
+}
+
+?>
+	<form method="POST">
+		<div class="form-group">
+			<label>Email address*</label>
+			<input type="email" class="form-control" placeholder="Email" name="email" required autofocus>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" class="form-control" placeholder="Password" name="pass" required>
+		</div>
+		<button type="submit" class="btn btn-default" name="submit">Submit</button>
+	</form>
+</div>
+
+
+<?php
+
+require_once 'inc/layout/scripts.inc.php';
+
+?>
+</body>
+</html>
