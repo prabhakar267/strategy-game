@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-04 18:31:17
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-04 19:24:13
+* @Last Modified time: 2016-02-04 22:10:30
 */
 
 var LOAN_FORM = '<input type="number" class="form-control" placeholder="Enter the amount of loan you want from bank here" name="loan_amount" required>';
@@ -32,7 +32,7 @@ $(document).ready(function(){
 				// this is some real shit, user wants to attack
 				// make him enter the % of army he is going to put on defence
 				
-				additional_info_div.load("templates_included/move_attack.html");
+				additional_info_div.load("templates_included/move_attack.php");
 				break;
 			case 3 :
 				// trader bitch, he is trading with some other team
