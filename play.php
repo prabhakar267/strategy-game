@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-04 19:44:00
+ * @Last Modified time: 2016-02-05 00:41:45
  */
 
 require_once 'inc/connection.inc.php';
@@ -12,6 +12,11 @@ require_once 'inc/function.inc.php';
 
 if(!isLoggedin()){
 	header("Location: index.php");
+}
+
+if(isset($_POST['submit'])){
+	echo json_encode($_POST);
+	die;
 }
 
 ?>

@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-04 23:03:00
+ * @Last Modified time: 2016-02-05 03:48:23
  */
 
 require_once '../inc/connection.inc.php';
@@ -15,15 +15,15 @@ if(!isLoggedin()){
 }
 
 ?>
-<select class="form-control">
+<select class="form-control" name="team_on_attack">
 <?php
 	
 	$logged_in_user_id = $_SESSION['user_id'];
-	$query = "SELECT `name` FROM `users` WHERE `user_id` != '$logged_in_user_id'";
+	$query = "SELECT `user_id`,`name` FROM `users` WHERE `user_id` != '$logged_in_user_id'";
 	$query_run = mysqli_query($connection, $query);
 
 	while($query_row = mysqli_fetch_assoc($query_run)){
-		echo '<option>' . clean_string($query_row['name'], false) . '</option>';
+		echo '<option value="' . (int)$query_row['user_id'] . '">' . clean_string($query_row['name'], false) . '</option>';
 	}
 	
 ?>
