@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-04 18:32:59
+ * @Last Modified time: 2016-02-04 19:44:00
  */
 
 require_once 'inc/connection.inc.php';
@@ -42,6 +42,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 				<option value="3">Trade</option>
 			</select>
 		</div>
+		<div class="form-group" id="additional_info"></div>
 		<button type="submit" class="btn btn-default" name="submit">Submit</button>
 	</form>
 </div>
