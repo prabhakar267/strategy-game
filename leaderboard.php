@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-04 18:24:22
+ * @Last Modified time: 2016-02-05 14:24:48
  */
 
 require_once 'inc/connection.inc.php';
@@ -46,11 +46,13 @@ require_once 'inc/layout/stylesheets.inc.php';
 	
 	$i = 1;
 	while($query_row = mysqli_fetch_assoc($query_run)){
+		echo '<tr>';
 		echo '<td>' . $i++ . '</td>';
 		echo '<td>' . clean_string($query_row['name'], false) . '</td>';
 		echo '<td>' . (int)$query_row['army'] . '</td>';
 		echo '<td>' . (int)$query_row['money'] . '</td>';
 		echo '<td>' . (int)$query_row['land'] . '</td>';
+		echo '</tr>';
 	}
 
 ?>

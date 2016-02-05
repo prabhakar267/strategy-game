@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-05 03:57:24
+ * @Last Modified time: 2016-02-05 15:03:31
  */
 
 require_once 'inc/connection.inc.php';
@@ -27,7 +27,9 @@ if(isset($_POST['submit'])){
 	 * 3 - trade
 	 */
 	$selected_move = (int)$_POST['move']%4;
-	
+	$current_user_id = (int)$_SESSION['user_id'];
+	$current_move_number = (int)$_SESSION['move_number'];
+
 	switch($selected_move){
 		case 0:
 			// do nothing
@@ -35,6 +37,20 @@ if(isset($_POST['submit'])){
 		
 		case 1:
 			$loan_amount_wanted = (int)$_POST['loan_amount'];
+
+			$loan_query = "INSERT INTO `user_loan_log` (`user_id`,`loan_amount`,`taken_on`) VALUES ('$current_user_id', '$loan_amount_wanted', '$current_move_number')";
+
+			mysqli_query($connection, $loan_query);
+
+			/**
+			 * $new_amount this stores the sum of previous amount and loan amount
+			 * @var integer
+			 */
+			$new_amount = $_SESSION['money'] + $loan_amount_wanted;
+			$update_loan_query = "UPDATE `users` SET `money`='$new_amount' WHERE `user_id`='$current_user_id'";
+			
+			mysqli_query($connection, $update_loan_query);
+
 			break;
 
 		case 2:

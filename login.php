@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-04 19:16:20
+ * @Last Modified time: 2016-02-05 14:56:48
  */
 
 require_once 'inc/connection.inc.php';
@@ -18,13 +18,17 @@ if(isset($_POST['submit'])){
 	$entered_email 	= clean_string($_POST['email']);
 	$entered_pass	= encrypt_data(clean_string($_POST['pass']));
 	
-	$query = "SELECT `user_id`, `name` FROM `users` WHERE `email_id`='$entered_email' AND `password`='$entered_pass' LIMIT 1";
+	$query = "SELECT `user_id`,`name`,`army`,`money`,`land` FROM `users` WHERE `email_id`='$entered_email' AND `password`='$entered_pass' LIMIT 1";
 
 	$query_row = mysqli_fetch_assoc(mysqli_query($connection, $query));
 	
 	if(isset($query_row['user_id'])){
 		$_SESSION['user_id'] 		= (int)$query_row['user_id'];
 		$_SESSION['name'] 			= clean_string($query_row['name']);
+		$_SESSION['move_number'] 	= 1;
+		$_SESSION['army']		 	= (int)$query_row['army'];
+		$_SESSION['money'] 			= (int)$query_row['money'];
+		$_SESSION['land'] 			= (int)$query_row['land'];
 
 		header("Location: index.php");
 	} else {
