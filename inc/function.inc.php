@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 18:55:15
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-01-31 21:04:18
+ * @Last Modified time: 2016-02-06 12:55:57
  */
 
 
@@ -38,4 +38,20 @@ function clean_string($str, $mode=true){
  */
 function encrypt_data($str){
 	return md5($str);
+}
+
+
+/**
+ * function to make cURL calls
+ * @param  string $url URL at which cURL call is to be made
+ * @return string      output string
+ */
+function curl_URL_call($url){
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	$output = curl_exec($ch);
+	curl_close($ch);
+	return $output;
 }
