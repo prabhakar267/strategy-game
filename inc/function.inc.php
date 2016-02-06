@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 18:55:15
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 12:55:57
+ * @Last Modified time: 2016-02-06 13:50:06
  */
 
 
@@ -55,3 +55,14 @@ function curl_URL_call($url){
 	curl_close($ch);
 	return $output;
 }
+
+function return_base_URL(){
+	$current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+	$current_url = explode('/', $current_url);
+	unset($current_url[count($current_url) - 1]);
+	$current_url = implode('/', $current_url);
+
+	return $current_url . '/';
+}
+

@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 13:28:43
+ * @Last Modified time: 2016-02-06 13:37:53
  */
 
 require_once 'inc/connection.inc.php';
@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
 	 */
 	$selected_move = (int)$_POST['move']%4;
 	$current_user_id = (int)$_SESSION['user_id'];
-	$current_move_number = (int)$_SESSION['move_number'];
+	$current_move_number = (int)$_POST['move_number'];
 
 	switch($selected_move){
 		case 0:
