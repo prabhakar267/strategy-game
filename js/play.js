@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-04 18:31:17
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-04 22:10:30
+* @Last Modified time: 2016-02-06 12:22:39
 */
 
 var LOAN_FORM = '<input type="number" class="form-control" placeholder="Enter the amount of loan you want from bank here" name="loan_amount" required>';
@@ -38,7 +38,7 @@ $(document).ready(function(){
 				// trader bitch, he is trading with some other team
 				// make him enter the resources he wants to give
 				
-				additional_info_div.load("templates_included/move_trade.html");
+				additional_info_div.load("templates_included/move_trade.php");
 				break;
 		}
 		

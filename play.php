@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-05 15:03:31
+ * @Last Modified time: 2016-02-06 12:38:03
  */
 
 require_once 'inc/connection.inc.php';
@@ -56,18 +56,40 @@ if(isset($_POST['submit'])){
 		case 2:
 			$team_on_attack = (int)$_POST['team_on_attack'];
 			$army_on_defence = (int)$_POST['army_on_defence'];
+
+			/**
+			 * this stores the units of army going to attack other territory
+			 * @var integer
+			 */
+			$army_for_attack = (100 - $army_on_defence) * $_SESSION['army'];
+			
+			$attack_log_query = "INSERT INTO `attack_log` (`move_number`,`from_id`,`to_id`,`army_enroute`) VALUES ('$current_move_number','$current_user_id','$team_on_attack','$army_for_attack')";
+
+			mysqli_query($connection, $attack_log_query);
 			
 			break;
 
 		default:
-			$army_amount = (int)$_POST['army_amount'];
-			$money_amount = (int)$_POST['money_amount'];
-			$land_amount = (int)$_POST['land_amount'];
+			$army_offered = (int)$_POST['army_offered'];
+			$money_offered = (int)$_POST['money_offered'];
+			$land_offered = (int)$_POST['land_offered'];
 
+			$army_demanded = (int)$_POST['army_demanded'];
+			$money_demanded = (int)$_POST['money_demanded'];
+			$land_demanded = (int)$_POST['land_demanded'];
+
+			$team_for_trade = (int)$_POST['team_for_trade'];
+
+			$trade_query = "INSERT INTO `trade_log` (`move_number`,`from_id`,`to_id`,`army_offered`,`money_offered`,`land_offered`,`army_demanded`,`money_demanded`,`land_demanded`) VALUES ('$current_move_number','$current_user_id','$team_for_trade','$army_offered','$money_offered','$land_offered','$army_demanded','$money_demanded','$land_demanded')";
+
+			mysqli_query($connection, $trade_query);
+			
 			break;
 	}
 
-	echo $selected_move;
+	$_SESSION['move_number'] = $_SESSION['move_number'] + 1;
+
+	// echo $selected_move;
 
 	// echo json_encode($_POST);
 	// die;
