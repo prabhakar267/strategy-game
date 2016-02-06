@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 13:37:53
+ * @Last Modified time: 2016-02-06 19:40:22
  */
 
 require_once 'inc/connection.inc.php';
@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
 			 * this stores the units of army going to attack other territory
 			 * @var integer
 			 */
-			$army_for_attack = (100 - $army_on_defence) * $_SESSION['army'];
+			$army_for_attack = (100 - $army_on_defence);
 			
 			$attack_log_query = "INSERT INTO `attack_log` (`move_number`,`from_id`,`to_id`,`army_enroute`) VALUES ('$current_move_number','$current_user_id','$team_on_attack','$army_for_attack')";
 
