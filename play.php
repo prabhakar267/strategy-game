@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 12:38:03
+ * @Last Modified time: 2016-02-06 13:28:43
  */
 
 require_once 'inc/connection.inc.php';
@@ -83,7 +83,7 @@ if(isset($_POST['submit'])){
 			$trade_query = "INSERT INTO `trade_log` (`move_number`,`from_id`,`to_id`,`army_offered`,`money_offered`,`land_offered`,`army_demanded`,`money_demanded`,`land_demanded`) VALUES ('$current_move_number','$current_user_id','$team_for_trade','$army_offered','$money_offered','$land_offered','$army_demanded','$money_demanded','$land_demanded')";
 
 			mysqli_query($connection, $trade_query);
-			
+
 			break;
 	}
 
@@ -122,6 +122,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 				<option value="3">Trade</option>
 			</select>
 		</div>
+		<input class="hidden" name="move_number" id="move_number" />
 		<div class="form-group" id="additional_info"></div>
 		<button type="submit" class="btn btn-default" name="submit">Submit</button>
 	</form>

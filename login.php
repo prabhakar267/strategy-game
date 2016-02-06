@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-05 14:56:48
+ * @Last Modified time: 2016-02-06 13:29:39
  */
 
 require_once 'inc/connection.inc.php';
@@ -25,7 +25,6 @@ if(isset($_POST['submit'])){
 	if(isset($query_row['user_id'])){
 		$_SESSION['user_id'] 		= (int)$query_row['user_id'];
 		$_SESSION['name'] 			= clean_string($query_row['name']);
-		$_SESSION['move_number'] 	= 1;
 		$_SESSION['army']		 	= (int)$query_row['army'];
 		$_SESSION['money'] 			= (int)$query_row['money'];
 		$_SESSION['land'] 			= (int)$query_row['land'];

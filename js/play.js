@@ -2,12 +2,32 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-04 18:31:17
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-06 12:22:39
+* @Last Modified time: 2016-02-06 13:28:38
 */
 
 var LOAN_FORM = '<input type="number" class="form-control" placeholder="Enter the amount of loan you want from bank here" name="loan_amount" required>';
 
+
+/**
+ * update the input field for current move number
+ * @return void
+ */
+function update_move_number(){
+	var input_field = $("#move_number"),
+		url = config_path_ajax + "admin/current_level.php";
+
+	$.ajax({
+		url : url,
+		success : function(data){
+			var repsonse_json = jQuery.parseJSON(data);
+			input_field.val(repsonse_json.level);
+		},
+	});
+}
+
 $(document).ready(function(){
+	update_move_number();
+
 	$("#move_select_input").change(function() {
 		var move_select_input_form = $("#move_select_input"),
 			type_of_move = parseInt(move_select_input_form.val()),
