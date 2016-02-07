@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-02-06 13:42:05
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-07 23:50:19
+ * @Last Modified time: 2016-02-08 02:47:07
  */
 
 /**
@@ -106,6 +106,21 @@ while($attack_army_query_row = mysqli_fetch_assoc($attack_army_query_run)){
 	}
 }
 
+/**
+ * this array stores the changes to be done in each user's data
+ * @var array
+ */
+$user_changes = array();
+for($i=0;$i<count($user_army_details);$i++){
+	$temp_array = array(
+		'id'	=> (int)$user_army_details[$i]['id'],
+		'army'	=> 0,
+		'money'	=> 0,
+		'land'	=> 0,
+	);
+
+	array_push($user_changes, $temp_array);
+}
 
 for($i=0;$i<count($user_army_details);$i++){
 	$user_attacked = (int)$user_army_details[$i]['id'];
@@ -118,15 +133,19 @@ for($i=0;$i<count($user_army_details);$i++){
 	$maximum_attacker = -1;
 	$maximum_attacker_army = 0;
 
+	/**
+	 * array of all the users attacking current team
+	 * @var array
+	 */
 	$attackers = array();
 	while($attack_army_query_row = mysqli_fetch_assoc($attack_army_query_run)){
 		for($j=0;$j<count($user_army_details);$j++){
 			if($user_army_details[$j]['id'] == (int)$attack_army_query_row['from_id']){
-				$total_army_attacking += $user_army_details[$j]['on_attack'];
+				$total_army_attacking += (int)$user_army_details[$j]['on_attack'];
 				
 				if($user_army_details[$j]['on_attack'] > $maximum_attacker_army){
 					$maximum_attacker_army = $user_army_details[$j]['on_attack'];
-					$maximum_attacker = $j;
+					$maximum_attacker = $user_army_details[$j]['id'];
 				}
 
 				array_push($attackers, $user_army_details[$j]['id']);
@@ -135,11 +154,102 @@ for($i=0;$i<count($user_army_details);$i++){
 		}
 	}
 
+	// echo $total_army_attacking;
+
 	if($total_army_attacking >= $user_army_details[$i]['on_defence']){
 		// defending user loses
+		// user with maximum attacking army gets the resources of defender
+		
+		$defenders_defence_percentage = (float)$user_army_details[$i]['defence_percentage'];
+		$defenders_resource_array = get_user_resources($connection, $user_attacked);
+
+		for($j=0;$j<count($user_changes);$j++){
+			if($user_army_details[$j]['id'] == $user_attacked){
+				$user_changes[$j]['army'] -= $user_army_details[$i]['on_defence'];
+				$user_changes[$j]['money'] -= (int)$defenders_resource_array['money'] * $defenders_defence_percentage;
+				$user_changes[$j]['land'] -= (int)$defenders_resource_array['land'] * $defenders_defence_percentage;
+			}
+			
+			if($user_army_details[$j]['id'] == $maximum_attacker){
+				$user_changes[$j]['money'] += (int)$defenders_resource_array['money'] * $defenders_defence_percentage;
+				$user_changes[$j]['land'] += (int)$defenders_resource_array['land'] * $defenders_defence_percentage;
+			}
+		}
+
+		// kill half the attack army for all the attackers
+		foreach($attackers as $attacker){
+			for($j=0;$j<count($user_changes);$j++){
+				if($user_changes[$j]['id'] == $attacker){
+					for($k=0;$k<count($user_army_details);$k++){
+						if($user_army_details[$k]['id'] == $attacker){
+							$user_changes[$j]['army'] -= (int)$user_army_details[$k]['on_attack'] * ATTACK_LOSS;
+							break;
+						}	
+					}
+					break;
+				}
+			}	
+		}
 	} else {
 		// defending user wins		
+		// defender gets all the resources from all the attackers
+		
+		$money_for_defender = 0;
+		$land_for_defender = 0;
+
+		foreach($attackers as $attacker){
+			for($j=0;$j<count($user_army_details);$j++){
+				if($user_army_details[$j]['id'] == $attacker){
+					$attacker_attack_percent = 1 - $user_army_details[$j]['defence_percentage'];
+					$attackers_resource_array = get_user_resources($connection, $attacker);
+
+					$user_changes[$j]['army'] -= (int)$attackers_resource_array['army'] * $attacker_attack_percent;
+					$user_changes[$j]['money'] -= (int)$attackers_resource_array['money'] * $attacker_attack_percent;
+					$user_changes[$j]['land'] -= (int)$attackers_resource_array['land'] * $attacker_attack_percent;
+
+					$money_for_defender += (int)$attackers_resource_array['money'] * $attacker_attack_percent;
+					$land_for_defender += (int)$attackers_resource_array['land'] * $attacker_attack_percent;
+					break;
+				}
+			}
+		}
+
+		for($j=0;$j<count($user_changes);$j++){
+			if($user_changes[$j]['id'] == $user_attacked){
+				$user_changes[$j]['army'] -= $user_army_details[$i]['on_defence'] * ATTACK_LOSS;
+
+				$user_changes[$j]['money'] += $money_for_defender;
+				$user_changes[$j]['land'] += $land_for_defender;
+
+				break;
+			}
+		}
 	}
 }
 
-echo json_encode($user_army_details);
+// commit changes to the database
+foreach($user_changes as $change){
+	$user_id = (int)$change['id'];
+	$user_army_change = (int)$change['army'];
+	$user_money_change = (int)$change['money'];
+	$user_land_change = (int)$change['land'];
+
+	$query = "UPDATE `users` SET `army`=`army`+'$user_army_change', `money`=`money`+'$user_money_change', `land`=`land`+'$user_land_change' WHERE `user_id`='$user_id'";
+	mysqli_query($connection, $query);
+}
+
+
+/**
+ * Update move number
+ */
+$file_name = "current_level";
+
+$file_handler = fopen($file_name, "w");
+
+$new_move_number = $current_move_number + 1;
+fwrite($file_handler, $new_move_number);
+
+fclose($file_handler);
+
+
+echo json_encode($final_response);
