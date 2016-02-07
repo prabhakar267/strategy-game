@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 18:55:15
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 13:50:06
+ * @Last Modified time: 2016-02-07 23:04:09
  */
 
 
@@ -56,6 +56,12 @@ function curl_URL_call($url){
 	return $output;
 }
 
+
+/**
+ * function to get the URL of the page
+ * eg- "localhost/game/index.php" would return "http://localhost/game/"
+ * @return string
+ */
 function return_base_URL(){
 	$current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
@@ -66,3 +72,16 @@ function return_base_URL(){
 	return $current_url . '/';
 }
 
+
+/**
+ * function to get the resources of the user
+ * @param  connection_object	$connection 
+ * @param  integer 				$user_id    
+ * @return array
+ */
+function get_user_resources($connection, $user_id){
+	$query = "SELECT `army`,`money`,`land` FROM `users` WHERE `user_id`='$user_id' LIMIT 1";
+	$query_row = mysqli_fetch_assoc(mysqli_query($connection, $query));
+
+	return $query_row;
+}

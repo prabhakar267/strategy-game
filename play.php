@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 19:40:22
+ * @Last Modified time: 2016-02-07 18:27:26
  */
 
 require_once 'inc/connection.inc.php';
@@ -87,7 +87,7 @@ if(isset($_POST['submit'])){
 			break;
 	}
 
-	$_SESSION['move_number'] = $_SESSION['move_number'] + 1;
+	// $_SESSION['move_number'] = $_SESSION['move_number'] + 1;
 
 	// echo $selected_move;
 

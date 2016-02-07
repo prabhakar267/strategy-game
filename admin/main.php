@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-02-06 13:42:05
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 19:42:32
+ * @Last Modified time: 2016-02-07 23:50:19
  */
 
 /**
@@ -75,9 +75,10 @@ $users_query_run = mysqli_query($connection, $users_query);
 $user_army_details = array();
 while($users_query_row = mysqli_fetch_assoc($users_query_run)){
 	$temp_array = array(
-		'id'			=> (int)$users_query_row['user_id'],
-		'on_defence'	=> (int)$users_query_row['army'],
-		'on_attack'		=> 0,
+		'id'					=> (int)$users_query_row['user_id'],
+		'on_defence'			=> (int)$users_query_row['army'],
+		'on_attack'				=> 0,
+		'defence_percentage'	=> 1,
 	);
 
 	array_push($user_army_details, $temp_array);
@@ -99,10 +100,46 @@ while($attack_army_query_row = mysqli_fetch_assoc($attack_army_query_run)){
 		if($user_army_details[$i]['id'] == $user_to_be_updated){
 			$user_army_details[$i]['on_attack'] = ($percentage_army_attacking / 100) * $user_army_details[$i]['on_defence'];
 			$user_army_details[$i]['on_defence'] = $user_army_details[$i]['on_defence'] - $user_army_details[$i]['on_attack'];
+			$user_army_details[$i]['defence_percentage'] -= $percentage_army_attacking / 100;
 			break;
 		}
 	}
 }
 
+
+for($i=0;$i<count($user_army_details);$i++){
+	$user_attacked = (int)$user_army_details[$i]['id'];
+	
+	$attack_army_query = "SELECT `from_id` FROM `attack_log` WHERE `move_number`='$current_move_number' AND `to_id`='$user_attacked' ORDER BY `army_enroute` ASC";
+	$attack_army_query_run = mysqli_query($connection, $attack_army_query);
+	
+
+	$total_army_attacking = 0;
+	$maximum_attacker = -1;
+	$maximum_attacker_army = 0;
+
+	$attackers = array();
+	while($attack_army_query_row = mysqli_fetch_assoc($attack_army_query_run)){
+		for($j=0;$j<count($user_army_details);$j++){
+			if($user_army_details[$j]['id'] == (int)$attack_army_query_row['from_id']){
+				$total_army_attacking += $user_army_details[$j]['on_attack'];
+				
+				if($user_army_details[$j]['on_attack'] > $maximum_attacker_army){
+					$maximum_attacker_army = $user_army_details[$j]['on_attack'];
+					$maximum_attacker = $j;
+				}
+
+				array_push($attackers, $user_army_details[$j]['id']);
+				break;
+			}
+		}
+	}
+
+	if($total_army_attacking >= $user_army_details[$i]['on_defence']){
+		// defending user loses
+	} else {
+		// defending user wins		
+	}
+}
 
 echo json_encode($user_army_details);
