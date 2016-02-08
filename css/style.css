@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-08 12:05:41
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-08 12:27:16
+* @Last Modified time: 2016-02-08 15:19:50
 */
 
 .transparent-background{
@@ -15,4 +15,13 @@
 	opacity: .4;
 	top: 0;
 	z-index: -150;
+}
+
+.request{
+	background-color: white;
+	padding: 5%;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 900;
+	border: 1px solid black;
 }

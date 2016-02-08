@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-02-08 13:02:42
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-08 13:25:36
+ * @Last Modified time: 2016-02-08 16:15:45
  */
 
 
@@ -33,7 +33,7 @@ if(isset($_GET['user_id'])){
 	$user_id = (int)$_GET['user_id'];
 
 	if((bool)$mode){
-		$query = "SELECT T.trade_log_id, U.name, T.army_offered, T.money_offered, T.land_offered, T.army_demanded, T.money_demanded, T.land_demanded, T.status FROM trade_log T INNER JOIN users U ON T.to_id = U.user_id WHERE T.status=0 AND T.from_id='$user_id'";
+		$query = "SELECT T.trade_log_id, U.name, T.army_offered, T.money_offered, T.land_offered, T.army_demanded, T.money_demanded, T.land_demanded, T.status FROM trade_log T INNER JOIN users U ON T.to_id = U.user_id WHERE T.from_id='$user_id'";
 	} else {
 		$query = "SELECT T.trade_log_id, U.name, T.army_offered, T.money_offered, T.land_offered, T.army_demanded, T.money_demanded, T.land_demanded FROM trade_log T INNER JOIN users U ON T.from_id = U.user_id WHERE T.status=0 AND T.move_number='$last_move' AND T.to_id='$user_id'";
 	}

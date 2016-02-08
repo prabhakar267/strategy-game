@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-07 18:27:26
+ * @Last Modified time: 2016-02-08 16:11:45
  */
 
 require_once 'inc/connection.inc.php';
@@ -111,21 +111,33 @@ require_once 'inc/layout/stylesheets.inc.php';
 	include 'inc/layout/header.inc.php';
 
 ?>
-<div class="container">
-	<form method="POST">
-		<div class="form-group">
-			<label>Move *</label>
-			<select class="form-control" required name="move" id="move_select_input">
-				<option value="0">Pass (Sure, kiddo?)</option>
-				<option value="1">Take Loan</option>
-				<option value="2">Attack (That's more like it)</option>
-				<option value="3">Trade</option>
-			</select>
-		</div>
-		<input class="hidden" name="move_number" id="move_number" />
-		<div class="form-group" id="additional_info"></div>
-		<button type="submit" class="btn btn-default" name="submit">Submit</button>
-	</form>
+
+<div class="col-md-12">
+	<div class="col-md-3">
+		<h2><strong><center>Outstanding Requests</center></strong></h2>
+		<div id="requests_for_me">Loading...</div>
+	</div>
+	<div class="col-md-6">
+		<form method="POST">
+			<div class="form-group">
+				<label>Move *</label>
+				<select class="form-control" required name="move" id="move_select_input">
+					<option value="0">Pass (Sure, kiddo?)</option>
+					<option value="1">Take Loan</option>
+					<option value="2">Attack (That's more like it)</option>
+					<option value="3">Trade</option>
+				</select>
+			</div>
+			<input class="hidden" name="move_number" id="move_number" />
+			<input class="hidden" id="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>"/>
+			<div class="form-group" id="additional_info"></div>
+			<button type="submit" class="btn btn-default" name="submit">Submit</button>
+		</form>
+	</div>
+	<div class="col-md-3">
+		<h2><strong><center>Previous Trade History</center></strong></h2>
+		<div id="requests_from_me">Loading...</div>
+	</div>
 </div>
 
 
