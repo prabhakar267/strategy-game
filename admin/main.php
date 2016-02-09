@@ -3,14 +3,15 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-02-06 13:42:05
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-08 13:05:12
+ * @Last Modified time: 2016-02-09 15:58:47
  */
 
 /**
  * 1. give loans to all the users who have demanded for it
  * 2. check for loan, if moves > 2 and not repayed reduce resources
- * 3. attack on the users
- * 4. update move number
+ * 3. convert money to army
+ * 4. attack on the users
+ * 5. update move number
  */
 
 
@@ -64,6 +65,31 @@ while($loan_query_row = mysqli_fetch_assoc($loan_query_run)){
 		array_push($final_response, $message);
 	}
 }
+
+
+/**
+ * convert money to army
+ */
+$army_trade_query = "SELECT L.user_id, L.army_wanted, U.army, U.money, U.name FROM `army_purchase_log` L INNER JOIN `users` U ON L.user_id = U.user_id WHERE L.move_number='$current_move_number'";
+$army_trade_query_run = mysqli_query($connection, $army_trade_query);
+
+while($army_trade_query_row = mysqli_fetch_assoc($army_trade_query_run)){
+	$user_id 		= (int)$army_trade_query_row['user_id'];
+	$army_wanted	= (int)$army_trade_query_row['army_wanted'];
+	$current_army	= (int)$army_trade_query_row['army'];
+	$current_money	= (int)$army_trade_query_row['money'];
+	$user_name		= $army_trade_query_row['name'];
+	
+	if($army_wanted*ARMY_MONEY_CONVERSION <= $current_money){
+		$money_deducted = $army_wanted*ARMY_MONEY_CONVERSION;
+		$update_query = "UPDATE `users` SET `army`='$current_army'+'$army_wanted', `money`=`money`-'$money_deducted' WHERE `user_id`='$user_id'";
+		if(mysqli_query($connection, $query_recover_loan)){
+			$message = 'user ' . $user_name . ' bought '. $army_wanted . ' from ARMY PIT';
+			array_push($final_response, $message);
+		}
+	}
+}
+
 
 /**
  * attack on the users

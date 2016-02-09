@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-08 16:11:45
+ * @Last Modified time: 2016-02-09 16:03:30
  */
 
 require_once 'inc/connection.inc.php';
@@ -26,7 +26,8 @@ if(isset($_POST['submit'])){
 	 * 2 - attack
 	 * 3 - trade
 	 */
-	$selected_move = (int)$_POST['move']%4;
+	
+	$selected_move = (int)$_POST['move']%5;
 	$current_user_id = (int)$_SESSION['user_id'];
 	$current_move_number = (int)$_POST['move_number'];
 
@@ -69,7 +70,7 @@ if(isset($_POST['submit'])){
 			
 			break;
 
-		default:
+		case 3:
 			$army_offered = (int)$_POST['army_offered'];
 			$money_offered = (int)$_POST['money_offered'];
 			$land_offered = (int)$_POST['land_offered'];
@@ -83,6 +84,14 @@ if(isset($_POST['submit'])){
 			$trade_query = "INSERT INTO `trade_log` (`move_number`,`from_id`,`to_id`,`army_offered`,`money_offered`,`land_offered`,`army_demanded`,`money_demanded`,`land_demanded`) VALUES ('$current_move_number','$current_user_id','$team_for_trade','$army_offered','$money_offered','$land_offered','$army_demanded','$money_demanded','$land_demanded')";
 
 			mysqli_query($connection, $trade_query);
+
+			break;
+
+		case 4:
+			$army_wanted = (int)$_POST['army_wanted'];
+			$army_wanted_query = "INSERT INTO `army_purchase_log` (`user_id`,`army_wanted`,`move_number`) VALUES ('$current_user_id','$army_wanted','$current_move_number')";
+
+			mysqli_query($connection, $army_wanted_query);
 
 			break;
 	}
@@ -126,6 +135,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 					<option value="1">Take Loan</option>
 					<option value="2">Attack (That's more like it)</option>
 					<option value="3">Trade</option>
+					<option value="4">Buy Army</option>
 				</select>
 			</div>
 			<input class="hidden" name="move_number" id="move_number" />

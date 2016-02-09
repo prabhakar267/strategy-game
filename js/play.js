@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-04 18:31:17
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-08 16:17:22
+* @Last Modified time: 2016-02-09 15:37:40
 */
 
 var LOAN_FORM = '<input type="number" class="form-control" placeholder="Enter the amount of loan you want from bank here" name="loan_amount" required>';
@@ -150,6 +150,11 @@ $(document).ready(function(){
 				// make him enter the resources he wants to give
 				
 				additional_info_div.load("templates_included/move_trade.php");
+				break;
+			case 4 :
+				// convert money to army
+				
+				additional_info_div.load("templates_included/move_armypit.php");
 				break;
 		}
 	});
