@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-09 16:03:30
+ * @Last Modified time: 2016-02-10 17:50:42
  */
 
 require_once 'inc/connection.inc.php';
@@ -81,7 +81,7 @@ if(isset($_POST['submit'])){
 
 			$team_for_trade = (int)$_POST['team_for_trade'];
 
-			$trade_query = "INSERT INTO `trade_log` (`move_number`,`from_id`,`to_id`,`army_offered`,`money_offered`,`land_offered`,`army_demanded`,`money_demanded`,`land_demanded`) VALUES ('$current_move_number','$current_user_id','$team_for_trade','$army_offered','$money_offered','$land_offered','$army_demanded','$money_demanded','$land_demanded')";
+			$trade_query = "INSERT INTO `trade_log` (`move_number`,`from_id`,`to_id`,`army_offered`,`money_offered`,`land_offered`,`army_demanded`,`money_demanded`,`land_demanded`) VALUES ('$current_move_number','$current_user_id','$team_for_trade','$army_demanded','$money_demanded','$land_demanded','$army_offered','$money_offered','$land_offered')";
 
 			mysqli_query($connection, $trade_query);
 

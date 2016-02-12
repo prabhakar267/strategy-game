@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-02-06 13:42:05
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-09 15:58:47
+ * @Last Modified time: 2016-02-10 17:37:19
  */
 
 /**
@@ -83,7 +83,7 @@ while($army_trade_query_row = mysqli_fetch_assoc($army_trade_query_run)){
 	if($army_wanted*ARMY_MONEY_CONVERSION <= $current_money){
 		$money_deducted = $army_wanted*ARMY_MONEY_CONVERSION;
 		$update_query = "UPDATE `users` SET `army`='$current_army'+'$army_wanted', `money`=`money`-'$money_deducted' WHERE `user_id`='$user_id'";
-		if(mysqli_query($connection, $query_recover_loan)){
+		if(mysqli_query($connection, $update_query)){
 			$message = 'user ' . $user_name . ' bought '. $army_wanted . ' from ARMY PIT';
 			array_push($final_response, $message);
 		}
@@ -179,7 +179,6 @@ for($i=0;$i<count($user_army_details);$i++){
 		}
 	}
 
-	// echo $total_army_attacking;
 
 	if($total_army_attacking >= $user_army_details[$i]['on_defence']){
 		// defending user loses
@@ -237,21 +236,23 @@ for($i=0;$i<count($user_army_details);$i++){
 					break;
 				}
 			}
-		}
+			for($j=0;$j<count($user_changes);$j++){
+				if($user_changes[$j]['id'] == $user_attacked){
+					$user_changes[$j]['army'] -= $user_army_details[$i]['on_defence'] * ATTACK_LOSS;
 
-		for($j=0;$j<count($user_changes);$j++){
-			if($user_changes[$j]['id'] == $user_attacked){
-				$user_changes[$j]['army'] -= $user_army_details[$i]['on_defence'] * ATTACK_LOSS;
+					$user_changes[$j]['money'] += $money_for_defender;
+					$user_changes[$j]['land'] += $land_for_defender;
 
-				$user_changes[$j]['money'] += $money_for_defender;
-				$user_changes[$j]['land'] += $land_for_defender;
-
-				break;
+					break;
+				}
 			}
+
 		}
 	}
 }
+	// echo json_encode($user_changes);
 
+	// die;
 // commit changes to the database
 foreach($user_changes as $change){
 	$user_id = (int)$change['id'];
