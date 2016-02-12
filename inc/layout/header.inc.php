@@ -1,4 +1,2 @@
 <div class="transparent-background"></div>
-<hr>
-<h1><strong>Strategy Game</strong></h1>
-<hr>
+<p class="game-header">Watchers on The Wall</p>

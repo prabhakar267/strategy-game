@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-05 14:24:48
+ * @Last Modified time: 2016-02-12 12:39:00
  */
 
 require_once 'inc/connection.inc.php';
@@ -23,6 +23,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 <body>
 <?php
 
+	include 'inc/layout/navbar.inc.html';
 	include 'inc/layout/header.inc.php';
 
 ?>

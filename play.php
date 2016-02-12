@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-10 17:50:42
+ * @Last Modified time: 2016-02-12 13:15:20
  */
 
 require_once 'inc/connection.inc.php';
@@ -13,6 +13,8 @@ require_once 'inc/function.inc.php';
 if(!isLoggedin()){
 	header("Location: index.php");
 }
+
+// $query = "SELECT ``"
 
 if(isset($_POST['submit'])){
 	/**
@@ -117,16 +119,33 @@ require_once 'inc/layout/stylesheets.inc.php';
 <body>
 <?php
 
+	include 'inc/layout/navbar.inc.html';
 	include 'inc/layout/header.inc.php';
 
 ?>
 
 <div class="col-md-12">
 	<div class="col-md-3">
-		<h2><strong><center>Outstanding Requests</center></strong></h2>
+		<h2 class="requests-header"><a class="hint--bottom-right hint--bounce" data-hint="Trade requests which are raised by the other families">Outstanding Requests</a></h2>
 		<div id="requests_for_me">Loading...</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-6 main-move-div">
+		<div class="col-md-12">
+			<div class="col-md-4 zero-padding">
+				<center><label>Army</label></center>
+				<input type="number" class="form-control" disabled value="<?php echo $_SESSION['army']; ?>">
+			</div>
+			<div class="col-md-4 zero-padding">
+				<center><label>Money</label></center>
+				<input type="number" class="form-control" disabled value="<?php echo $_SESSION['money']; ?>">
+			</div>
+			<div class="col-md-4 zero-padding">
+				<center><label>Land</label></center>
+				<input type="number" class="form-control" disabled value="<?php echo $_SESSION['land']; ?>">
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<hr>
 		<form method="POST">
 			<div class="form-group">
 				<label>Move *</label>
@@ -141,12 +160,12 @@ require_once 'inc/layout/stylesheets.inc.php';
 			<input class="hidden" name="move_number" id="move_number" />
 			<input class="hidden" id="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>"/>
 			<div class="form-group" id="additional_info"></div>
-			<button type="submit" class="btn btn-default" name="submit">Submit</button>
+			<button type="submit" class="btn btn-success btn-lg" name="submit">Submit</button>
 		</form>
 	</div>
 	<div class="col-md-3">
-		<h2><strong><center>Previous Trade History</center></strong></h2>
-		<div id="requests_from_me">Loading...</div>
+		<h2 class="requests-header"><a class="hint--bottom-left hint--bounce" data-hint="Trade requests you raised so far">Your trade history</a></h2>
+		<div class="col-md-12" id="requests_from_me">Loading...</div>
 	</div>
 </div>
 

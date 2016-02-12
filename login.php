@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-06 13:29:39
+ * @Last Modified time: 2016-02-12 12:42:12
  */
 
 require_once 'inc/connection.inc.php';
@@ -50,6 +50,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 <body>
 <?php
 
+	include 'inc/layout/navbar.inc.html';
 	include 'inc/layout/header.inc.php';
 
 ?>
@@ -66,8 +67,8 @@ if(isset($error)){
 ?>
 	<form method="POST">
 		<div class="form-group">
-			<label>Email address*</label>
-			<input type="email" class="form-control" placeholder="Email" name="email" required autofocus>
+			<label>Username*</label>
+			<input type="username" class="form-control" placeholder="Email" name="email" required autofocus>
 		</div>
 		<div class="form-group">
 			<label>Password</label>

@@ -2,8 +2,24 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-08 12:05:41
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-08 15:19:50
+* @Last Modified time: 2016-02-12 13:10:54
 */
+
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('CinzelDecorative-Regular'), url(../fonts/fmgK7oaJJIXAkhd9798yQl4jZHmtnl4mfN0ClpLnj0E.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body{
+	font-family: 'Cinzel Decorative', cursive;
+}
+
+.zero-padding{
+	padding: 0;
+}
 
 .transparent-background{
 	background-image: url(../img/314903.jpg);
@@ -17,6 +33,33 @@
 	z-index: -150;
 }
 
+.game-header{
+	text-align: center;
+	font-size: 36px;
+	margin: 25px 0;
+	font-weight: 900;
+	text-shadow: 0px 0px 20px rgba(255, 255, 255, 1);
+}
+
+.requests-header{
+	text-align: center;
+	font-size: 20px;
+	background-color: black;
+	padding: 5px;
+	margin: 0;
+	margin-bottom: 10px;
+	font-weight: 900;
+	cursor: default;
+}
+
+.requests-header a{
+	color: white;
+}
+
+.requests-header a:hover{
+	text-decoration: none;
+}
+
 .request{
 	background-color: white;
 	padding: 5%;
@@ -24,4 +67,15 @@
 	font-size: 15px;
 	font-weight: 900;
 	border: 1px solid black;
+}
+
+.main-move-div{
+	padding: 20px;
+	background: white;
+	border: 4px solid black;
+}
+
+#requests_from_me{
+	height: 350px;
+	overflow-y: scroll;
 }
