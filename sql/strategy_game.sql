@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2016 at 12:53 PM
+-- Generation Time: Feb 12, 2016 at 02:39 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -21,6 +21,19 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `strategy_game` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `strategy_game`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `army_purchase_log`
+--
+
+CREATE TABLE IF NOT EXISTS `army_purchase_log` (
+  `army_purchase_log` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `move_number` int(11) NOT NULL,
+  `army_wanted` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -45,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `attack_log` (
 CREATE TABLE IF NOT EXISTS `trade_log` (
   `trade_log_id` int(11) NOT NULL,
   `move_number` int(5) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   `army_offered` int(5) NOT NULL,
@@ -52,8 +66,7 @@ CREATE TABLE IF NOT EXISTS `trade_log` (
   `land_offered` int(5) NOT NULL,
   `army_demanded` int(5) NOT NULL,
   `money_demanded` int(5) NOT NULL,
-  `land_demanded` int(5) NOT NULL,
-  `accepted` int(1) NOT NULL DEFAULT '0'
+  `land_demanded` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -71,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(300) NOT NULL,
   `army` int(5) NOT NULL DEFAULT '500',
   `money` int(5) NOT NULL DEFAULT '500',
-  `land` int(5) NOT NULL DEFAULT '500'
+  `land` int(5) NOT NULL DEFAULT '500',
+  `move_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -91,6 +105,12 @@ CREATE TABLE IF NOT EXISTS `user_loan_log` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `army_purchase_log`
+--
+ALTER TABLE `army_purchase_log`
+  ADD PRIMARY KEY (`army_purchase_log`);
 
 --
 -- Indexes for table `attack_log`
@@ -120,6 +140,11 @@ ALTER TABLE `user_loan_log`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `army_purchase_log`
+--
+ALTER TABLE `army_purchase_log`
+  MODIFY `army_purchase_log` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `attack_log`
 --
