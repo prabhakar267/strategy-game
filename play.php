@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-12 14:02:30
+ * @Last Modified time: 2016-02-12 15:38:08
  */
 
 require_once 'inc/connection.inc.php';
@@ -120,6 +120,7 @@ if(isset($_POST['submit'])){
 <head>
 <?php
 
+include 'inc/layout/meta.inc.php';
 require_once 'inc/layout/stylesheets.inc.php';
 
 ?>
