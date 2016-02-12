@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-04 18:31:17
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-09 15:37:40
+* @Last Modified time: 2016-02-12 14:14:05
 */
 
 var LOAN_FORM = '<input type="number" class="form-control" placeholder="Enter the amount of loan you want from bank here" name="loan_amount" required>';
@@ -49,7 +49,7 @@ function get_requests_for_user(){
 				for(request in repsonse_json){
 					var current_request = repsonse_json[request];
 
-					var html = '<div class="col-md-12 request" id="' + current_request['trade_log_id'] + '">from : ' + current_request['name'] + '<br>army offered : <span>' + current_request['army_offered'] + '</span><br>money offered : <span>' + current_request['money_offered'] + '</span><br>land offered : <span>' + current_request['land_offered'] + '</span><br>army demanded : <span>' + current_request['army_demanded'] + '</span><br>money demanded : <span>' + current_request['money_demanded'] + '</span><br>land demanded : <span>' + current_request['land_demanded'] + '</span><br><br><button class="btn btn-success trade_button" data-flag="1">accept</button><button class="btn btn-danger trade_button" data-flag="0">reject</button></div>';
+					var html = '<div class="col-md-12 request" id="' + current_request['trade_log_id'] + '">from : <span>' + current_request['name'] + '<span><br>army offered : <span class="success">' + current_request['army_offered'] + '</span><br>money offered : <span class="success">' + current_request['money_offered'] + '</span><br>land offered : <span class="success">' + current_request['land_offered'] + '</span><br>army demanded : <span class="failure">' + current_request['army_demanded'] + '</span><br>money demanded : <span class="failure">' + current_request['money_demanded'] + '</span><br>land demanded : <span class="failure">' + current_request['land_demanded'] + '</span><br><br><button class="btn btn-success trade_button" data-flag="1">accept</button><button class="btn btn-danger trade_button" data-flag="0">reject</button></div>';
 
 					requests_div.append(html);
 				}
@@ -81,10 +81,17 @@ function get_requests_from_user(){
 			console.log(repsonse_json);
 			if(repsonse_json.length > 0){
 				for(request in repsonse_json){
-					var current_request = repsonse_json[request],
-						status = (current_request['status'] > 0) ? 'Accepted' : 'Rejected';
+					var current_request = repsonse_json[request];
 
-					var html = '<div class="col-md-12 request" id="' + current_request['trade_log_id'] + '">to : ' + current_request['name'] + '<br>army offered : <span>' + current_request['army_offered'] + '</span><br>money offered : <span>' + current_request['money_offered'] + '</span><br>land offered : <span>' + current_request['land_offered'] + '</span><br>army demanded : <span>' + current_request['army_demanded'] + '</span><br>money demanded : <span>' + current_request['money_demanded'] + '</span><br>land demanded : <span>' + current_request['land_demanded'] + '</span><br>' + status;
+					if(current_request['status'] > 0){
+						status = "<center><span class='success'>accepted</span></center>";
+					} else if(current_request['status'] == 0){
+						status = "<center><span class='pending'>pending</span></center>";
+					} else {
+						status = "<center><span class='failure'>rejected</span></center>";
+					}
+
+					var html = '<div class="col-md-12 request" id="' + current_request['trade_log_id'] + '">to : <span>' + current_request['name'] + '</span><br>army offered : <span class="success">' + current_request['army_offered'] + '</span><br>money offered : <span class="success">' + current_request['money_offered'] + '</span><br>land offered : <span class="success">' + current_request['land_offered'] + '</span><br>army demanded : <span class="failure">' + current_request['army_demanded'] + '</span><br>money demanded : <span class="failure">' + current_request['money_demanded'] + '</span><br>land demanded : <span class="failure">' + current_request['land_demanded'] + '</span><br>' + status;
 
 					requests_div.append(html);
 				}

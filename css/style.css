@@ -2,7 +2,7 @@
 * @Author: Prabhakar Gupta
 * @Date:   2016-02-08 12:05:41
 * @Last Modified by:   Prabhakar Gupta
-* @Last Modified time: 2016-02-12 13:10:54
+* @Last Modified time: 2016-02-12 14:12:33
 */
 
 @font-face {
@@ -62,11 +62,28 @@ body{
 
 .request{
 	background-color: white;
-	padding: 5%;
-	text-align: center;
-	font-size: 15px;
-	font-weight: 900;
+	padding: 15px;
+	font-size: 12px;
 	border: 1px solid black;
+	margin-bottom: 5px;
+}
+
+.request span{
+	font-weight: 900;
+	font-size: 15px;
+	font-family: monospace;
+}
+
+.request span.success{
+	color: green;
+}
+
+.request span.failure{
+	color: red;
+}
+
+.request span.pending{
+	color: orange;
 }
 
 .main-move-div{
