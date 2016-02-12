@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-12 13:15:20
+ * @Last Modified time: 2016-02-12 14:02:30
  */
 
 require_once 'inc/connection.inc.php';
@@ -14,9 +14,21 @@ if(!isLoggedin()){
 	header("Location: index.php");
 }
 
-// $query = "SELECT ``"
+$current_user_id = (int)$_SESSION['user_id'];
+$query = "SELECT `move_number`,`army`,`money`,`land` FROM `users` WHERE `user_id`='$current_user_id'";
+$query_row = mysqli_fetch_assoc(mysqli_query($connection, $query));
+
+$user_move_number = (int)$query_row['move_number'];
+$_SESSION['army'] = (int)$query_row['army'];
+$_SESSION['money'] = (int)$query_row['money'];
+$_SESSION['land'] = (int)$query_row['land'];
+
+$url = return_base_URL() . "admin/current_level.php";
+$admin_current_move_number = json_decode(curl_URL_call($url), true);
+$admin_current_move_number = (int)$admin_current_move_number['level'];
 
 if(isset($_POST['submit'])){
+	
 	/**
 	 * $selected_move would tell about the type of move
 	 * user has played in the current move
@@ -28,9 +40,7 @@ if(isset($_POST['submit'])){
 	 * 2 - attack
 	 * 3 - trade
 	 */
-	
 	$selected_move = (int)$_POST['move']%5;
-	$current_user_id = (int)$_SESSION['user_id'];
 	$current_move_number = (int)$_POST['move_number'];
 
 	switch($selected_move){
@@ -98,12 +108,10 @@ if(isset($_POST['submit'])){
 			break;
 	}
 
-	// $_SESSION['move_number'] = $_SESSION['move_number'] + 1;
+	$incease_move_number_query = "UPDATE `users` SET `move_number`='$admin_current_move_number' WHERE `user_id`='$current_user_id'";
+	mysqli_query($connection, $incease_move_number_query);
 
-	// echo $selected_move;
-
-	// echo json_encode($_POST);
-	// die;
+	header("Location: play.php");
 }
 
 ?>
@@ -148,7 +156,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 		<hr>
 		<form method="POST">
 			<div class="form-group">
-				<label>Move *</label>
+				<label>Move <?php echo $admin_current_move_number; ?> *</label>
 				<select class="form-control" required name="move" id="move_select_input">
 					<option value="0">Pass (Sure, kiddo?)</option>
 					<option value="1">Take Loan</option>
@@ -160,7 +168,16 @@ require_once 'inc/layout/stylesheets.inc.php';
 			<input class="hidden" name="move_number" id="move_number" />
 			<input class="hidden" id="user_id" value="<?php echo (int)$_SESSION['user_id']; ?>"/>
 			<div class="form-group" id="additional_info"></div>
-			<button type="submit" class="btn btn-success btn-lg" name="submit">Submit</button>
+<?php
+
+	if($user_move_number < $admin_current_move_number){
+		echo '<button type="submit" class="btn btn-success btn-lg" name="submit">Submit</button>';
+	} else {
+		echo 'your <strong>move ' . $admin_current_move_number . '</strong> has been recorded!<br>';
+		echo '<div class="text-right"><a href="play.php"><button type="button" class="btn btn-success">refresh</button></a></div>';
+	}
+
+?>			
 		</form>
 	</div>
 	<div class="col-md-3">
