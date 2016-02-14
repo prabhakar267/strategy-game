@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-14 23:09:18
+ * @Last Modified time: 2016-02-14 23:11:28
  */
 
 require_once 'inc/connection.inc.php';
@@ -16,6 +16,7 @@ require_once 'inc/function.inc.php';
 <head>
 <?php
 
+include 'inc/layout/meta.inc.php';
 require_once 'inc/layout/stylesheets.inc.php';
 
 ?>
