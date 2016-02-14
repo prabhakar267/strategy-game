@@ -3,7 +3,7 @@
  * @Author: Prabhakar Gupta
  * @Date:   2016-01-31 13:02:57
  * @Last Modified by:   Prabhakar Gupta
- * @Last Modified time: 2016-02-12 14:32:16
+ * @Last Modified time: 2016-02-14 23:09:18
  */
 
 require_once 'inc/connection.inc.php';
@@ -43,7 +43,7 @@ require_once 'inc/layout/stylesheets.inc.php';
 			<tr>
 <?php
 
-	$query = "SELECT `name`,`army`,`money`,`land`, (3*`money`+2*`money`+`army`) AS `points` FROM `users` WHERE `disqualified`=0 ORDER BY `points` DESC";
+	$query = "SELECT `name`,`army`,`money`,`land`, (3*`land`+2*`money`+`army`) AS `points` FROM `users` WHERE `disqualified`=0 ORDER BY `points` DESC";
 	$query_run = mysqli_query($connection, $query);
 	
 	$i = 1;
