@@ -18,6 +18,7 @@ The objective of the game is to maximize the Area/Land (kingdom) under the contr
        4. Do nothing
     If you want to take a loan, you can approach the Iron Bank of Braavos as well. This would be in addition to one of the above four choices.
     
+    
 ####FAQs
 
    **HOW IS THE OUTCOME OF AN ATTACK DECIDED?**
@@ -40,6 +41,11 @@ The objective of the game is to maximize the Area/Land (kingdom) under the contr
    **WHAT IS THE USE OF IRON BANK OF BRAAVOS AND WHAT ARE ITS TERMS AND CONDITIONS?**
    The Iron Bank of Braavos works as a money lender. Houses can take a loan twice in whole stage. Interest rate at which they have to repay the loan amount is 25%. Loan must be repaid within 3 rounds. If a House fails to repay the loan amount, then Braavos attacks that House, and it loses 80% of its resources.
 
+####SCREENSHOTS
 
-  
-
+Registration screen:
+![](/screenshots/register.png?raw=true)
+Play Area:
+![](/screenshots/play.png?raw=true)
+Leaderboard:
+![](/screenshots/leaderboard.png?raw=true)
