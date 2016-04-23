@@ -19,6 +19,7 @@ The objective of the game is to maximize the Area/Land (kingdom) under the contr
     If you want to take a loan, you can approach the Iron Bank of Braavos as well. This would be in addition to one of the above four choices.
     
 ####FAQs
+
     **HOW IS THE OUTCOME OF AN ATTACK DECIDED?**
     In a single battle, the House having greater army wins over the other house. If multiple houses attack the same house, the House with the largest effective army wins, while only the losing House suffers damage.
 
@@ -35,6 +36,7 @@ The objective of the game is to maximize the Area/Land (kingdom) under the contr
     - 10 Sell swords = 10M
     - Second Sons = 10M for 1.
     - Unsullied = 20M for 1
+    
    **WHAT IS THE USE OF IRON BANK OF BRAAVOS AND WHAT ARE ITS TERMS AND CONDITIONS?**
    The Iron Bank of Braavos works as a money lender. Houses can take a loan twice in whole stage. Interest rate at which they have to repay the loan amount is 25%. Loan must be repaid within 3 rounds. If a House fails to repay the loan amount, then Braavos attacks that House, and it loses 80% of its resources.
 
