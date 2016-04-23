@@ -13,15 +13,15 @@ The objective of the game is to maximize the Area/Land (kingdom) under the contr
 ####Rules of the game:
   In each round, you can 
        1. Attack another House OR
-        2. Approach another House for an Alliance OR
-        3. Buy soldiers from the Army Pit OR
-        4. Do nothing
+       2. Approach another House for an Alliance OR
+       3. Buy soldiers from the Army Pit OR
+       4. Do nothing
     If you want to take a loan, you can approach the Iron Bank of Braavos as well. This would be in addition to one of the above four choices.
     
 ####FAQs
 
-    **HOW IS THE OUTCOME OF AN ATTACK DECIDED?**
-    In a single battle, the House having greater army wins over the other house. If multiple houses attack the same house, the House with the largest effective army wins, while only the losing House suffers damage.
+   **HOW IS THE OUTCOME OF AN ATTACK DECIDED?**
+   In a single battle, the House having greater army wins over the other house. If multiple houses attack the same house, the House with the largest effective army wins, while only the losing House suffers damage.
 
    **WHAT HAPPENS WHEN A HOUSE GETS DEFEATED IN AN ATTACK?**
     The defeated House gets left with 50% of the army, 50% of the land and 50% of the money it had prior to the attack.
