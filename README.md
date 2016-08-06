@@ -5,7 +5,7 @@ This event is a strategy game, based on the TV series **Game of Thrones**.
 The objective of the game is to maximize the Area/Land (kingdom) under the control of each House. This is done by battling the other Houses using the Army units under the control of each House. More army units can be purchased from Army pits by using Gold (Money), a certain amount of which has been allotted to each House at the start of the game.
 
 ####Instructions to run:
-  1. Save connection.inc.sample as connect.inc.php and change variables according to your database settings. 
+  1. Save [connection.inc.sample](inc/connection.inc.sample) as connection.inc.php and change variables according to your database settings. 
   2. Register yourself as a player before you can begin playing. (/register.php)
   3. Login and you are good to go. 
   4. The points can be viewed by clicking on the leaderboard.
